@@ -23,4 +23,4 @@ class Complaint(models.Model):
         unique_together = ('user', 'subject', 'complaint_status')
     
     def __str__(self):
-        return str(self.id + " : " + self.subject)
+        return str(self.id) + " : " + self.subject

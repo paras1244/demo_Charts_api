@@ -6,6 +6,7 @@ from .models import Complaint
 class AuthorAdmin(admin.ModelAdmin):
     list_display = [
         "id",
+        "user",
         "subject",
         "description",
         "complaint_status",
