@@ -29,7 +29,7 @@ I have created model into complaint.models file to storing the complaints of use
 # Published Postman Documentation
 https://documenter.getpostman.com/view/19442321/VUxKTUhB
 # Extreted Postman Collection with Examples:
--> I have added the Extracted file at : "postman_documentation/glib_test_api_doc_.py"
+-> I have added the Exported file at : "postman_documentation/glib_test_api_doc_.json"
 
 # Admin User
 Admin user : Amit / password123#
