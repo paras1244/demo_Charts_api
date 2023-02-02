@@ -3,9 +3,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
-from .models import Complaint
+from .models import Complaint, ParasPostSave
 from .serializers import ComplaintSerializer
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 class ComplaintView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -84,3 +87,28 @@ class AllComplaints(APIView):
                 "solved_percantage_str" : str(round(Complaint.objects.filter(complaint_status="COMPLETED").count() / Complaint.objects.all().count() * 100, 2)) + " %",
             })
         return Response(data, status=status.HTTP_200_OK)
+
+
+
+@receiver(post_save, sender=Complaint)
+def create_validation_rule(sender, instance, **kwargs):
+    # print(instance, instance.subject, "----", instance.id, type(instance))
+    # print(sender)
+    # print(kwargs)
+
+    CODE_CHOICE = [
+            ["QRV001",],
+            ["QRV002",],
+            ["QRV003",],
+            ["QRV004",],
+            ["QRV005",],
+            ["QRV006",],
+            ["QRV007",],
+            ["QRV008",],
+            ["QRV009",],
+            ["QRV010",]
+        ]
+    
+    for code in CODE_CHOICE:
+        print(code[0])
+        ParasPostSave.objects.create(complaint=instance, validation_code=code[0])

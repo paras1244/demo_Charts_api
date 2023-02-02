@@ -22,5 +22,10 @@ class Complaint(models.Model):
     class Meta:
         unique_together = ('user', 'subject', 'complaint_status')
     
-    def __str__(self):
-        return str(self.id) + " : " + self.subject
+    # def __str__(self):
+    #     return str(self.id) + " : " + self.subject
+
+
+class ParasPostSave(models.Model):
+    complaint = models.ForeignKey(Complaint, on_delete=models.CASCADE)
+    validation_code = models.CharField(max_length=10, null=True, blank=True)
